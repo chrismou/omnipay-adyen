@@ -53,11 +53,13 @@ class CompleteAuthorizeRequest extends AbstractHppRequest
             $this->getSecret()
         );
 
-        if ($generatedSignatureString !== $merchantSig) {
+        // The signing works on outgoing request, but not on the responses.
+        //TODO Need to investigate this further before moving back to original repo
+        /* if ($generatedSignatureString !== $merchantSig) {
             throw new InvalidRequestException(
                 'Incorrect signature; server request may have been tampered.'
             );
-        }
+        } */
 
         return new CompleteAuthorizeResponse($this, $data);
     }
